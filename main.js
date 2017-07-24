@@ -6,8 +6,9 @@ import websocket from 'websocket-stream';
 
 const AWS_ACCESS_KEY = 'AKIAJTKDBJ57NKDMCBDA';
 const AWS_SECRET_ACCESS_KEY = '';
-const AWS_IOT_ENDPOINT_HOST = 'a1udr0qzhg5qir.iot.eu-west-1.amazonaws.com';
-const MQTT_TOPIC = '/animal/vote';
+const AWS_IOT_ENDPOINT_HOST = 'a1udr0qzhg5qir.iot.us-east-1.amazonaws.com';
+//const MQTT_TOPIC = 'animal/vote';
+const MQTT_TOPIC = '$aws/things/Mqtt_Client/shadow/#';
 
 var client;
 addLogEntry('Hello World!');
@@ -32,6 +33,9 @@ document.getElementById('connect').addEventListener('click', () => {
         return websocket(url, [ 'mqttv3.1' ]);
     });
 
+   
+
+
     client.on('connect', () => {
         addLogEntry('Successfully connected to AWS IoT Broker!  :-)');
         client.subscribe(MQTT_TOPIC);
@@ -44,14 +48,19 @@ document.getElementById('connect').addEventListener('click', () => {
     });
 
     client.on('message', (topic, message) => {
-        addLogEntry('Incoming message: ' + message.toString());
+        addLogEntry('<==' + topic + ' : ' + message.toString());
     });
 });
 
 document.getElementById('send').addEventListener('click', () => {
     const message = document.getElementById('message').value;
-    addLogEntry('Outgoing message: ' + message);
-    client.publish(MQTT_TOPIC, message);
+    addLogEntry('Outgoing message to animal/vote: '  + message);
+    client.publish('animal/vote', message);
+});
+
+document.getElementById('subscribe').addEventListener('click', () => {
+    const message = document.getElementById('subscribe').value;
+    client.subscribe(message);
 });
 
 function addLogEntry(info) {
