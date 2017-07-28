@@ -5,7 +5,7 @@ import MqttClient from './node_modules/mqtt/lib/client';
 import websocket from 'websocket-stream';
 
 const AWS_ACCESS_KEY = 'AKIAJTKDBJ57NKDMCBDA';
-const AWS_SECRET_ACCESS_KEY = '';
+const AWS_SECRET_ACCESS_KEY = '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';
 const AWS_IOT_ENDPOINT_HOST = 'a1udr0qzhg5qir.iot.us-east-1.amazonaws.com';
 //const MQTT_TOPIC = 'animal/vote';
 const MQTT_TOPIC = '$aws/things/Mqtt_Client/shadow/#';
